@@ -108,28 +108,13 @@ The component READMEs inside each top-level folder walk you through what each fi
 
 ## Integrating with your AI tool
 
-The framework is a folder of markdown files. To use it, your AI tool needs to be able to read those files on demand and follow the routing they describe.
+The framework is a folder of markdown files. To use it, your AI tool needs to be able to read those files on demand and follow the routing they describe. The setup instructions below are for Anthropic's Claude, which is where the framework is developed and used daily. Similar workflows can be implemented in other LLM systems (GPT, Gemini, open-weight models, custom harnesses); see [Other harnesses](#other-harnesses) for the general pattern.
 
-### The role of `CLAUDE.md`
+### Claude setup
 
-`CLAUDE.md` at the repo root is the framework's **master instruction file**. It tells any AI instance which skills exist, which conventions to load before which kinds of task, which agents are available, and how to route a request to the right files. Everything downstream is referenced from there.
+`CLAUDE.md` at the repo root is the framework's **master instruction file**. It tells Claude which skills exist, which conventions to load before which kinds of task, which agents are available, and how to route a request to the right files. Claude Code auto-loads `CLAUDE.md` at every session start; everything else is referenced from there. The filename is the Anthropic convention; the content is vendor-neutral and reusable on other harnesses.
 
-The filename follows the convention established by Anthropic's Claude Code, which auto-loads `CLAUDE.md` at every session start. The *content* of the file is vendor-neutral: any LLM that can read markdown can use it. If you are running the framework on a non-Claude harness, you load the same file under whatever mechanism your harness provides (system prompt, project knowledge, attached file, RAG index). The filename is just convention; the routing logic is general.
-
-A future release may ship a parallel `AGENTS.md` (the cross-vendor convention OpenAI and others have proposed) as a symlink or duplicate, so adopters using non-Claude harnesses get an equivalent auto-load. For now, `CLAUDE.md` is the single source of truth and other harnesses load it explicitly.
-
-### Common pattern
-
-Whatever the harness, the integration boils down to two requirements:
-
-1. The AI tool must load `CLAUDE.md` once at session start (or keep it in context throughout).
-2. The AI tool must be able to open the skill, agent, convention, and knowledge-base files that `CLAUDE.md` references, on demand, when their triggers match the task.
-
-Concrete steps vary by harness. None require a build step or proprietary tooling.
-
-### Claude Code (canonical path)
-
-Claude Code is the framework's primary development target and the path the maintainers run daily. Two complementary steps wire it up:
+Two complementary steps wire the framework into Claude Code:
 
 **1. Make the framework's instructions globally visible.** Claude Code reads `~/.claude/CLAUDE.md` at every session start. Symlink the framework's navigation file there:
 
@@ -156,23 +141,19 @@ Now when you run `claude` from any project directory, Claude Code can read every
 
 For applications built on the Anthropic SDK, load the framework's markdown files programmatically and inject them as system-prompt content or file references. Pattern: detect the task intent, read the relevant SKILL.md, prepend it to the system prompt, run. A reference implementation is on the v0.3 roadmap.
 
-### Other harnesses (GPT, Gemini, open-weight models)
+### Other harnesses
 
-Any AI tool that can:
+Any AI tool that can read markdown files on demand (via file-system access, RAG, MCP, or attached file references), invoke sub-processes for sub-agent role-play within a session, and load external context via system prompts, project files, or retrieval can run the framework.
 
-- Read markdown files on demand (file-system access, RAG, MCP, or attached file references),
-- Invoke sub-processes for sub-agent role-play within a session, and
-- Load external context via system prompts, project files, or retrieval
+Concrete pattern: load `CLAUDE.md` as the session's high-level instructions; load relevant SKILL.md files when their trigger description matches the task; reference sub-agent role files when dispatching specialist work. Cross-harness adapters (ChatGPT custom-GPT projects, Gemini extensions, LangChain or LlamaIndex wrappers) are a v0.4 roadmap item; community contributions welcome.
 
-can run the framework. Concrete pattern: load `CLAUDE.md` as the session's high-level instructions; load relevant SKILL.md files when their trigger description matches the task; reference sub-agent role files when dispatching specialist work. Cross-harness adapters (ChatGPT custom-GPT projects, Gemini extensions, LangChain or LlamaIndex wrappers) are a v0.4 roadmap item; community contributions welcome.
+A future release may also ship a parallel `AGENTS.md` (the cross-vendor convention OpenAI and others have proposed) as a symlink to `CLAUDE.md`, so harnesses that auto-load `AGENTS.md` pick up the framework without manual configuration.
 
 ### What the framework does not require
 
 - No proprietary file formats. Everything is markdown.
 - No vendor SDK lock-in. No build step, no compile target, no install pipeline.
 - No paid hosting. The framework runs locally; the LLM call is the only external dependency.
-
-Track your changes through the dashboard (next section).
 
 ## Tracking the framework as it grows
 
