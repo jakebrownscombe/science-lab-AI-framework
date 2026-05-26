@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="logo2.png" alt="AI Science Lab Framework" width="280">
+  <img src="logo2.png" alt="Science Lab AI Framework" width="280">
 </p>
 
 <h1 align="center">AI Science Lab Framework</h1>
 
 <p align="center">
-  <em>A reference framework for building a hybrid digital lab around large language models.</em><br>
+  <em>A framework for leveraging large language models as reliable science tools.</em><br>
   <strong>Forked, not consumed.</strong><br>
   <span style="color:#6a6a66;">Repo: <code>science-lab-AI-framework</code></span>
 </p>
@@ -22,11 +22,9 @@
 
 ## What this is
 
-A **vendor-neutral reference framework** for setting up the persistent infrastructure a working scientist needs to collaborate with large language models across projects, sessions, and model generations. It is the public companion deposit to:
+A **vendor-neutral framework** for setting up the persistent infrastructure a working scientist needs to leverage large language models as science tools across projects, sessions, and model generations.
 
-> Brownscombe, J. W., et al. (in preparation). *Beyond the AI Scientist: An architecture for human-AI scientific practice.*
-
-The framework operationalises the paper's three architectural fundamentals:
+The framework is built around three architectural fundamentals:
 
 1. **Skills** as externalised conventions, methodological defaults, and workflows that the model invokes the same way every time.
 2. **Sub-agents** as specialist roles that mirror how a real lab divides cognitive labour.
@@ -36,7 +34,7 @@ It is intentionally generic. Out of the box it does nothing lab-specific. The po
 
 ## Why this exists
 
-Most working scientists studying slow, complex, real-world systems do not need an autonomous AI scientist. They need a way to make AI a structured, persistent, durable contributor to a research practice that will outlive any single model release. The existing principles literature predates skill-based agentic tooling; vendor frameworks describe collaboration at the product level but rarely operationalise it for the working scientist. This framework is the operational layer: text files, organised by purpose, that any sufficiently capable model can load and invoke.
+LLMs are useful tools for supporting science, but they require essential scaffolding to produce reliable workflows and products. This framework is an operational layer containing the key elements scientists can use to build tailored workflows specific to their needs, making LLMs more useful and reliable. It is not a static, standardised tool; it is a structural framework for continuously evolving and improving workflows specific to your scientific uses and preferences.
 
 It is not a packaged AI system. It is not vendor-specific. It is not a substitute for scientific judgment.
 
@@ -44,37 +42,37 @@ It is a starting point.
 
 ## Architecture at a glance
 
+The scientist configures the framework; the framework structures the LLM's work; the LLM's outputs flow back through the framework for the scientist to review and iterate. Every interface is two-way.
+
 ```
-                                 ┌──────────────────────┐
-                                 │   Working scientist  │
-                                 │ holds source authority│
-                                 └──────────┬───────────┘
-                                            │
-       ┌────────────────────────────────────┼────────────────────────────────────┐
-       │                                    │                                    │
-       ▼                                    ▼                                    ▼
-┌──────────────┐                  ┌──────────────────┐                ┌──────────────────┐
-│    Skills    │                  │    Sub-agents    │                │  Knowledge base  │
-│              │                  │                  │                │                  │
-│  Externalised│   ◀──invokes──▶  │  Specialist roles│  ◀──draws on──▶│  Topic-organised │
-│  conventions │                  │  mirroring a lab │                │  reference layer │
-│  & workflows │                  │                  │                │                  │
-└──────────────┘                  └──────────────────┘                └──────────────────┘
-       │                                    │                                    │
-       └────────────────────────────────────┼────────────────────────────────────┘
-                                            ▼
-                                  ┌──────────────────┐
-                                  │ Any capable LLM  │
-                                  │ (Claude / GPT /  │
-                                  │ Gemini / others) │
-                                  └──────────────────┘
+        ┌──────────────────────────────────────────────────┐
+        │              Working scientist                   │
+        │       holds authority, curates, iterates         │
+        └──────────┬───────────────────────────▲───────────┘
+                   │                           │
+              configures /                  reviews /
+              maintains                     iterates
+                   ▼                           │
+        ┌──────────────────────────────────────────────────┐
+        │  Skills  ◀──▶  Sub-agents  ◀──▶  Knowledge base  │
+        │              (the framework files)               │
+        └──────────┬───────────────────────────▲───────────┘
+                   │                           │
+              invokes /                     outputs /
+              structures                    drafts
+                   ▼                           │
+        ┌──────────────────────────────────────────────────┐
+        │     Any capable LLM (Claude / GPT / Gemini)      │
+        └──────────────────────────────────────────────────┘
 ```
 
-## Quickstart
+The cycle runs at every scale: a single chat session (LLM proposes; scientist verifies; framework updates), a project (skills get refined as analyses surface gaps), and a career (the knowledge base compounds across projects). The framework's job is to make every loop more reliable than the last.
 
-Pick your path. The framework supports both AI-assisted onboarding (recommended) and manual editing.
+## Setup
 
-### Path 1: AI-assisted onboarding (~1 hour, recommended)
+The framework is designed to be set up with AI assistance, which is the most reliable and efficient route. Direct editing of the files is also supported, and the two approaches combine freely: many adopters use the AI-assisted onboarding for the bulk of the work and then hand-edit anywhere they want to be more specific.
+
+### Recommended: AI-assisted onboarding (~1 hour)
 
 ```bash
 # 1. Fork or clone the framework into your own version control
@@ -96,24 +94,22 @@ open setup/lab-onboarding.html
 #    commit, and you are ready.
 ```
 
-What you end up with: populated `conventions/voice.md`, `manuscript-format.md`, `code-format.md`, `figure-format.md`, `reply-format.md`, stubs for any domain-specialist agents you need, and a seeded knowledge base with your first three topics.
+What you end up with: populated `conventions/voice.md`, `manuscript-format.md`, `code-format.md`, `figure-format.md`, `reply-format.md`, stubs for any domain-specialist agents you need, and a seeded knowledge base with your first three topics. If you prefer chat over a browser form, `setup/SKILL.md` runs the same interview directly in any LLM session.
 
-### Path 2: Manual editing (~1 day, for advanced users)
+### Direct editing (anytime)
+
+Every file in the framework is designed to be edited. Use the AI-assisted onboarding to scaffold most of your setup, then customise wherever you want more specificity:
+
+- Copy any `*.template.md` to its non-template name and fill in the slots by hand.
+- Audit any `SKILL.md` and adjust domain-specific examples or steps.
+- Seed `knowledge_base/` with topic folders following the `_topic.template/` skeleton.
+- Regenerate the dashboard at any point:
 
 ```bash
-# 1. Fork and clone (as above)
-# 2. For each *.template.md file in conventions/, copy to a non-template name
-#    and fill in the slots with your lab's content. Same for
-#    agents/_domain-specialist.template.md.
-# 3. For each skill in skills/, audit the SKILL.md and adjust any
-#    domain-specific examples to match your lab.
-# 4. Seed your knowledge_base/ with topic folders.
-# 5. Generate the dashboard:
-node tools/generate-state.js
-open tools/system-dashboard.html
+node tools/generate-state.js && open tools/system-dashboard.html
 ```
 
-The component READMEs inside each folder walk you through manual setup in detail.
+The component READMEs inside each top-level folder walk you through what each file does and how to populate it.
 
 ## What is inside
 
@@ -166,9 +162,9 @@ science-lab-AI-framework/
     └── README.md            how to run the dashboard
 ```
 
-## The setup interview
+## What the setup interview asks
 
-The headline adopter feature. A self-contained HTML form asks you about:
+The HTML form covers seven phases. Answers persist in `localStorage` so partial fills survive a tab close; the chat-driven `setup/SKILL.md` walks through the same questions if you prefer.
 
 - **Lab identity**: name, domain, primary methods and outputs.
 - **Voice**: paste 2-3 sample paragraphs, set preferences for hedging, banned words, punctuation quirks.
@@ -178,26 +174,22 @@ The headline adopter feature. A self-contained HTML form asks you about:
 - **Knowledge-base seed**: three topics to populate first.
 - **Quality preferences**: which research-iterate gates apply.
 
-State persists in `localStorage` so partial answers survive a tab close. When you finish, the export button produces a copy-paste-ready block; paste it into any capable LLM along with `setup/SKILL.md`, and the LLM populates your templates.
+## Suggested fundamentals (and what you own)
 
-If you prefer chat over a browser form, `setup/SKILL.md` runs the same interview directly.
+The framework is yours to shape. Every file is editable, and the structure is built to accommodate replacement, removal, and extension. What ships in v0.2 is a starting point organised into two kinds of file:
 
-## What is opinionated, what is yours
+- **Suggested fundamentals** (ship populated). A small set of baseline content that reflects current best practices for using LLMs reliably in research, especially around minimising hallucinations and maintaining source faithfulness. Includes: `conventions/research.md` (source-faithfulness contract), `conventions/iteration-workflow.md`, `conventions/research-quality-gates.md`, `conventions/visual-review-protocol.md`, `conventions/readiness-assessment.md`, `conventions/system-improvement-protocol.md`, and the five core sub-agent role files under `agents/`. These are recommended, not required. Keep them, modify them, or replace them as your lab develops its own conventions.
+- **Templates** (ship empty, for you to fill). Everything stylistic, domain-specific, or lab-specific: voice, manuscript format, figure format, code format, reply format, and the domain-specialist agent skeleton. These ship as `*.template.md` files and are populated either by the AI-assisted onboarding or by direct editing.
 
-Two categories of file inside `conventions/` and `agents/`:
+The naming convention `*.template.md` flags the "yours to fill" files in `ls` output; everything else is a suggested starting point you can override at any time.
 
-- **Opinionated** (ships as-is): the methodological scaffolding. Source-faithfulness rules, the iteration workflow, quality gates, visual-review protocol, system-improvement protocol, the five core sub-agent roles. These are the hard-won bits we recommend you adopt without changes.
-- **Template** (you fill in): everything stylistic, domain-specific, or lab-specific. Voice, manuscript format, figure format, code format, reply format, domain-specialist agents.
+## Extending the framework
 
-The naming convention `*.template.md` makes the distinction visible in `ls` output.
-
-## How adopters extend the framework
-
-- **Add domain-specialist agents**. Copy `agents/_domain-specialist.template.md` to `agents/<your-specialist>.md` and fill in the slots. Update the Lab Director's routing table to send relevant tasks there.
-- **Add knowledge-base topics**. Use the `_topic.template/` as a skeleton; populate with articles. Every claim cites its source; the `literature-extractor` + `extraction-validator` agents enforce source faithfulness.
-- **Tune the skills**. The SKILL.md files in `skills/simple/` and `skills/workflows/` are designed to be edited. They are living documents, not fixed contracts.
-- **Use the iteration workflow**. `conventions/iteration-workflow.md` and `skills/workflows/research-iterate/SKILL.md` together provide a defensible loop for converting analyses into publication-ready outputs.
-- **Self-update**. `conventions/system-improvement-protocol.md` defines how user feedback during a project becomes durable changes to the framework itself.
+- **Add domain-specialist agents.** Copy `agents/_domain-specialist.template.md` to `agents/<your-specialist>.md` and fill in the slots. Update the Lab Director's routing table to send relevant tasks there.
+- **Add knowledge-base topics.** Use the `_topic.template/` as a skeleton; populate with articles. Every claim cites its source; the `literature-extractor` and `extraction-validator` agents enforce source faithfulness.
+- **Tune the skills.** The SKILL.md files in `skills/simple/` and `skills/workflows/` are designed to be edited. They are living documents, not fixed contracts.
+- **Use the iteration workflow.** `conventions/iteration-workflow.md` and `skills/workflows/research-iterate/SKILL.md` together provide a structured loop for converting analyses into publication-ready outputs.
+- **Self-update.** `conventions/system-improvement-protocol.md` defines how user feedback during a project becomes durable changes to the framework itself.
 
 ## Vocabulary
 
@@ -247,16 +239,6 @@ If you fork, adapt, or use this framework in published work, please cite:
 }
 ```
 
-And the companion paper:
-
-```bibtex
-@article{brownscombe2026beyondtheaiscientist,
-  author       = {Brownscombe, J. W. and others},
-  title        = {Beyond the {AI} {S}cientist: an architecture for human-{AI} scientific practice},
-  journal      = {in preparation},
-  year         = {2026}
-}
-```
 
 ## Licence
 
@@ -279,9 +261,7 @@ Please open an issue before substantial work to discuss scope. The framework is 
 
 ## Acknowledgments
 
-This framework grew out of a working lab implementation at Fisheries and Oceans Canada (the Brownscombe Lab). The lab-specific origin is intentionally factored out of the deposit so that the structure stands on its own. Thanks to the early users, reviewers, and pilots who tested the architecture against real research problems.
-
-The paper companion describes the rationale, evidence base, and conceptual framing in detail. This framework is the operational substrate.
+This framework grew out of Dr. Jacob Brownscombe's AI framework. The lab-specific origin is intentionally factored out of the deposit so that the structure stands on its own. Thanks to the early users, reviewers, and pilots who tested the architecture against real research problems.
 
 ---
 
