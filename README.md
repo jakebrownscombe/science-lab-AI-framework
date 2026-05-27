@@ -155,6 +155,27 @@ A future release may also ship a parallel `AGENTS.md` (the cross-vendor conventi
 - No vendor SDK lock-in. No build step, no compile target, no install pipeline.
 - No paid hosting. The framework runs locally; the LLM call is the only external dependency.
 
+## Working with the framework day-to-day
+
+Once your AI tool is wired up, you invoke the framework through natural conversation. When you ask the AI to do something, the routing tables in `CLAUDE.md` match your intent to the right skill, which loads the right conventions, which dispatches the right specialist agents. You start the conversation; the framework handles the rest.
+
+### Common entry points
+
+A few of the most-used starting prompts, with what fires under the hood. Examples below use the running fictional terrestrial-ecology lab; the pattern transfers to any domain.
+
+- **Plan an analysis.** *"I want to model small-mammal occupancy across the canopy-cover gradient. Plan the statistical approach."* → `analysis-planning` fires; parallel sub-agents research fundamentals, published precedents, and detection-bias considerations; returns a justified plan with a diagnostics checklist.
+- **Implement the analysis.** *"Now write the R code from that plan."* → `code-writing` fires; scaffolds scripts following your `code-format.md`, adds embedded diagnostics.
+- **Review code.** *"Review the analysis code in `scripts/`."* → `code-review` fires; hybrid automated + sub-agent review with annotated issues.
+- **Draft a paragraph.** *"Help me draft the intro for a paper on canopy-cover effects on small-mammal occupancy."* → `manuscript-writing` fires; loads your `voice.md` and `manuscript-format.md`, drafts in your lab's voice.
+- **Triage reviewer comments.** *"Triage these reviewer comments."* → `reviewer-reply-planning` fires; classifies each comment, flags which need your input on a structural decision.
+- **Run a full workflow.** *"Run the full analysis pipeline on this project."* → `analysis-pipeline` (the orchestrator) fires; chains plan, implement, review, iterate.
+
+You can also invoke skills by name when you want explicit control: *"Use the code-review skill on `data_clean.R`"* or *"Run the manuscript-pipeline."* Skills can be chained across sessions, and longer projects typically loop through `research-iterate` (in `skills/workflows/`) for multi-round refinement.
+
+### Iteration is the point
+
+The framework assumes you come back. A first pass at `analysis-planning` will reveal gaps; the `research-iterate` workflow takes a project from first cut to publication-ready over multiple rounds, with parallel specialist critique and quality gates per round. The dashboard (next section) shows the framework's state at any moment, so you can see exactly which files have been added, modified, or are still pending across sessions.
+
 ## Tracking the framework as it grows
 
 The dashboard at `tools/system-dashboard.html` is the central place to keep track of your framework as it develops. As you populate conventions, add domain-specialist agents, seed knowledge-base topics, or modify skills, the dashboard reflects what is in place and what is still pending. **Keep it open as you build.** It is the most reliable view of how your fork is evolving, both for yourself and for collaborators who clone from your version.
