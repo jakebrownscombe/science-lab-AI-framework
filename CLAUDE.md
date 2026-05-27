@@ -103,6 +103,32 @@ These files MUST be loaded before relevant tasks, regardless of which workflow o
 
 If a skill produces written output without loading the relevant conventions, that is a routing failure to flag.
 
+## Skill-firing declaration
+
+At the start of every substantive response, include a single tight line in this format, before any other prose:
+
+```
+**Using:** <comma-separated list>
+```
+
+List what is actually being invoked for the turn, drawn from:
+
+- Skills (e.g., `manuscript-writing`, `code-review`, `analysis-pipeline`)
+- Agents invoked (e.g., `quantitative-scientist`, `lab-director`, `literature-extractor`)
+- Conventions loaded (e.g., `voice.md`, `research.md`, `code-format.md`) — always-load contracts plus any others read for this turn
+- Knowledge-base articles consulted (e.g., `acoustic-telemetry/detection-efficiency`)
+- Workflow phases when a multi-phase skill is active (e.g., `paper-research Phase 2`)
+
+Rules:
+
+- One line, comma-separated. Do not break out into bullets.
+- List only what is genuinely in use for this turn, not the full catalogue.
+- For trivial replies (one-line clarifications, acknowledgements), still emit the line. At minimum the always-load conventions, or `**Using:** none` if no skill / agent / convention / KB is in play.
+- Place the line at the very top of the response.
+- Do not mention this declaration mechanism inside the response itself.
+
+The purpose is transparency. The user sees which parts of the framework are being applied to their request, which builds trust, makes it easy to spot when the wrong skill has fired, and helps newcomers learn what the framework is doing under the hood.
+
 ## Operating principles
 
 These come from the paper's §3 and apply to every interaction:
