@@ -52,6 +52,8 @@ The framework is built around three architectural fundamentals:
 2. **Sub-agents** as specialist roles that mirror how a real lab divides cognitive labour.
 3. **Knowledge bases** as curated, topic-organised, citation-anchored reference layers that grow with the researcher's career.
 
+A supporting layer of **hooks** keeps derived state in sync automatically. Hooks fire on system events (a git commit, a file edit) rather than on user intent; they handle the dashboard regeneration, validation checks, and other maintenance steps that should happen as part of doing business, not as separate tasks the user remembers to run.
+
 It is intentionally generic. Out of the box it does nothing lab-specific. The point is that you fork it, run the AI-assisted onboarding, and end up with a framework tuned to your lab, your voice, your methods, and your tools.
 
 ---
@@ -91,6 +93,8 @@ The scientist configures the framework; the framework structures the LLM's work;
 ```
 
 The cycle runs at every scale: a single chat session (LLM proposes; scientist verifies; framework updates), a project (skills get refined as analyses surface gaps), and a career (the knowledge base compounds across projects). The framework's job is to make every loop more reliable than the last.
+
+Running alongside the main flow, **hooks** fire on system events (a git commit, a file edit) to keep derived artefacts in sync without the scientist or the AI having to remember. The pre-commit hook that regenerates the dashboard on every framework-file change is the canonical example.
 
 ---
 
@@ -387,6 +391,7 @@ The terms used in this framework follow the paper:
 | **Sub-agent** | A specialist role definition (markdown file) that the model adopts for a delimited task within a session. |
 | **Knowledge base** | A topic-organised, citation-anchored, markdown-native reference layer that the model loads for context. |
 | **Convention** | A rule file (voice, research integrity, format) loaded by skills as a reference. |
+| **Hook** | A small script that fires on a system event (a git commit, a session start, a file edit) rather than on user intent. Hooks keep derived state in sync automatically: the pre-commit hook at `tools/git-hooks/pre-commit`, for instance, regenerates the dashboard whenever framework files are staged for commit. |
 
 Skills follow the open Agent Skills standard. Knowledge bases use plain Markdown for portability; retrieval can be wired through any framework that supports RAG or the Model Context Protocol.
 
