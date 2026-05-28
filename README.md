@@ -72,26 +72,24 @@ It is not a packaged AI system. It is not vendor-specific. It is not a substitut
 The scientist configures the framework; the framework structures the LLM's work; the LLM's outputs flow back through the framework for the scientist to review and iterate. Every interface is two-way.
 
 ```
-        ┌──────────────────────────────────────────────────────────┐
-        │                  Working scientist                       │
-        │           holds authority, curates, iterates             │
-        └──────────┬───────────────────────────────▲───────────────┘
-                   │                               │
-              configures /                      reviews /
-              maintains                         iterates
-                   ▼                               │
-        ┌──────────────────────────────────────────────────────────┐
-        │   Skills   ◀──▶   Sub-agents   ◀──▶   Knowledge base     │
-        │                                                          │
-        │                          Hooks                           │
-        └──────────┬───────────────────────────────▲───────────────┘
-                   │                               │
-              invokes /                         outputs /
-              structures                        drafts
-                   ▼                               │
-        ┌──────────────────────────────────────────────────────────┐
-        │       Any capable LLM (Claude / GPT / Gemini)            │
-        └──────────────────────────────────────────────────────────┘
+     ┌──────────────────────────────────────────────────────────────────┐
+     │                      Working scientist                           │
+     │              holds authority, curates, iterates                  │
+     └──────────────┬───────────────────────────────▲───────────────────┘
+                    │                               │
+               configures /                      reviews /
+               maintains                         iterates
+                    ▼                               │
+     ┌──────────────────────────────────────────────────────────────────┐
+     │   Skills  ◀──▶  Sub-agents  ◀──▶  Knowledge base  ◀──▶  Hooks    │
+     └──────────────┬───────────────────────────────▲───────────────────┘
+                    │                               │
+               invokes /                         outputs /
+               structures                        drafts
+                    ▼                               │
+     ┌──────────────────────────────────────────────────────────────────┐
+     │           Any capable LLM (Claude / GPT / Gemini)                │
+     └──────────────────────────────────────────────────────────────────┘
 ```
 
 The cycle runs at every scale: a single chat session (LLM proposes; scientist verifies; framework updates), a project (skills get refined as analyses surface gaps), and a career (the knowledge base compounds across projects). The framework's job is to make every loop more reliable than the last.
