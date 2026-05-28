@@ -94,7 +94,7 @@ The scientist configures the framework; the framework structures the LLM's work;
 
 The cycle runs at every scale: a single chat session (LLM proposes; scientist verifies; framework updates), a project (skills get refined as analyses surface gaps), and a career (the knowledge base compounds across projects). The framework's job is to make every loop more reliable than the last.
 
-Running alongside the main flow, **hooks** fire on system events (a git commit, a file edit) to keep derived artefacts in sync without the scientist or the AI having to remember. The pre-commit hook that regenerates the dashboard on every framework-file change is the canonical example.
+Running alongside the main flow, **hooks** fire on system events (a git commit, a file edit, a Claude Code session ending) to keep derived artefacts in sync and enforce conventions without the scientist or the AI having to remember. Four ship in v0.2: a git pre-commit hook that regenerates the dashboard, two Claude Code `UserPromptSubmit` hooks (one routes prompts to always-load conventions, one enforces the `**Using:** ...` declaration on every response), and a Claude Code `Stop` hook that regenerates the dashboard at session end. See `hooks/README.md` for the full inventory and `hooks/install.sh` for one-step installation.
 
 ---
 
@@ -119,6 +119,11 @@ cd my-lab-framework
 
 # 1c. Install the pre-commit hook so the dashboard auto-regenerates on every commit
 ln -sf ../../tools/git-hooks/pre-commit .git/hooks/pre-commit
+
+# 1d. (Optional, recommended) Install the Claude Code hooks: always-load convention
+#     routing, the "Using:" declaration, and session-end dashboard refresh.
+bash hooks/install.sh
+# Then paste the printed JSON stanza into ~/.claude/settings.json under "hooks".
 
 # 2. Open the onboarding form in your browser
 open setup/lab-onboarding.html
@@ -337,9 +342,17 @@ science-lab-AI-framework/
 │   ├── lab-onboarding.html  self-contained HTML form
 │   └── prompts/             helper prompts the setup skill uses
 │
+├── hooks/                   event-triggered Claude Code automation
+│   ├── inject-conventions.sh   UserPromptSubmit: route prompts to always-load conventions
+│   ├── announce-skills.sh      UserPromptSubmit: enforce the "Using:" declaration
+│   ├── refresh-state.sh        Stop: regenerate dashboard at session end
+│   ├── install.sh              one-step install into ~/.claude/
+│   └── README.md               hooks overview, install, customisation
+│
 └── tools/                   runnable code
     ├── generate-state.js    dashboard data generator (Node.js)
     ├── system-dashboard.html  self-contained dashboard viewer
+    ├── git-hooks/           git-layer hooks (pre-commit dashboard refresh)
     └── README.md            how to run the dashboard
 ```
 
@@ -391,7 +404,7 @@ The terms used in this framework follow the paper:
 | **Sub-agent** | A specialist role definition (markdown file) that the model adopts for a delimited task within a session. |
 | **Knowledge base** | A topic-organised, citation-anchored, markdown-native reference layer that the model loads for context. |
 | **Convention** | A rule file (voice, research integrity, format) loaded by skills as a reference. |
-| **Hook** | A small script that fires on a system event (a git commit, a session start, a file edit) rather than on user intent. Hooks keep derived state in sync automatically: the pre-commit hook at `tools/git-hooks/pre-commit`, for instance, regenerates the dashboard whenever framework files are staged for commit. |
+| **Hook** | A small script that fires on a system event (a git commit, a Claude Code session event, a file edit) rather than on user intent. The framework ships four hooks: a git pre-commit hook at `tools/git-hooks/pre-commit` plus three Claude Code hooks under `hooks/`. See `hooks/README.md`. |
 
 Skills follow the open Agent Skills standard. Knowledge bases use plain Markdown for portability; retrieval can be wired through any framework that supports RAG or the Model Context Protocol.
 
