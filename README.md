@@ -52,7 +52,7 @@ The framework is built around three architectural fundamentals:
 2. **Sub-agents** as specialist roles that mirror how a real lab divides cognitive labour.
 3. **Knowledge bases** as curated, topic-organised, citation-anchored reference layers that grow with the researcher's career.
 
-A supporting layer of **hooks** keeps derived state in sync automatically. Hooks fire on system events (a git commit, a file edit) rather than on user intent; they handle the dashboard regeneration, validation checks, and other maintenance steps that should happen as part of doing business, not as separate tasks the user remembers to run.
+A supporting layer of **hooks** keeps derived state in sync automatically. Hooks fire on system events (a git commit, a Claude Code prompt or session ending) rather than on user intent; they handle the dashboard regeneration, convention loading, and other maintenance steps that should happen as part of doing business, not as separate tasks the user remembers to run.
 
 It is intentionally generic. Out of the box it does nothing lab-specific. The point is that you fork it, run the AI-assisted onboarding, and end up with a framework tuned to your lab, your voice, your methods, and your tools.
 
@@ -94,7 +94,7 @@ The scientist configures the framework; the framework structures the LLM's work;
 
 The cycle runs at every scale: a single chat session (LLM proposes; scientist verifies; framework updates), a project (skills get refined as analyses surface gaps), and a career (the knowledge base compounds across projects). The framework's job is to make every loop more reliable than the last.
 
-Running alongside the main flow, **hooks** fire on system events (a git commit, a file edit, a Claude Code session ending) to keep derived artefacts in sync and enforce conventions without the scientist or the AI having to remember. Four ship in v0.2: a git pre-commit hook that regenerates the dashboard, two Claude Code `UserPromptSubmit` hooks (one routes prompts to always-load conventions, one enforces the `**Using:** ...` declaration on every response), and a Claude Code `Stop` hook that regenerates the dashboard at session end. See `hooks/README.md` for the full inventory and `hooks/install.sh` for one-step installation.
+Running alongside the main flow, **hooks** fire on system events (a git commit, a Claude Code prompt being submitted, a Claude Code session ending) to keep derived artefacts in sync and enforce conventions without the scientist or the AI having to remember. Four ship in v0.2: a git pre-commit hook that regenerates the dashboard, two Claude Code `UserPromptSubmit` hooks (one routes prompts to always-load conventions, one enforces the `**Using:** ...` declaration on every response), and a Claude Code `Stop` hook that regenerates the dashboard at session end. See `hooks/README.md` for the full inventory and `hooks/install.sh` for one-step installation.
 
 ---
 
@@ -404,7 +404,7 @@ The terms used in this framework follow the paper:
 | **Sub-agent** | A specialist role definition (markdown file) that the model adopts for a delimited task within a session. |
 | **Knowledge base** | A topic-organised, citation-anchored, markdown-native reference layer that the model loads for context. |
 | **Convention** | A rule file (voice, research integrity, format) loaded by skills as a reference. |
-| **Hook** | A small script that fires on a system event (a git commit, a Claude Code session event, a file edit) rather than on user intent. The framework ships four hooks: a git pre-commit hook at `tools/git-hooks/pre-commit` plus three Claude Code hooks under `hooks/`. See `hooks/README.md`. |
+| **Hook** | A small script that fires on a system event (a git commit, a Claude Code prompt submission, a Claude Code session ending) rather than on user intent. The framework ships four hooks: a git pre-commit hook at `tools/git-hooks/pre-commit` plus three Claude Code hooks under `hooks/`. See `hooks/README.md`. |
 
 Skills follow the open Agent Skills standard. Knowledge bases use plain Markdown for portability; retrieval can be wired through any framework that supports RAG or the Model Context Protocol.
 
