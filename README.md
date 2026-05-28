@@ -15,7 +15,6 @@
   <a href="LICENSE-CODE"><img src="https://img.shields.io/badge/code-MIT-green.svg" alt="Code licence: MIT"></a>
   <img src="https://img.shields.io/badge/version-0.2-orange.svg" alt="Version 0.2">
   <img src="https://img.shields.io/badge/status-early%20access-yellow.svg" alt="Status: early access">
-  <!-- <a href="https://doi.org/PLACEHOLDER"><img src="https://img.shields.io/badge/Zenodo-DOI-blue.svg" alt="Zenodo DOI"></a> -->
 </p>
 
 ---
@@ -396,18 +395,19 @@ The framework is designed to be **non-stationary**. Models will change, vendor A
 
 ## Citation
 
-If you fork, adapt, or use this framework in published work, please cite:
+If you fork, adapt, or use this framework in published work, please cite it. GitHub renders a **"Cite this repository"** button on the repo's right sidebar (sourced from `CITATION.cff`), which generates APA, BibTeX, and other formats on demand. The BibTeX below is the manual fallback:
 
 ```bibtex
-@misc{brownscombe2026sciencelabaiframework,
-  author       = {Brownscombe, J. W. and others},
-  title        = {science-lab-AI-framework: A reference framework for the hybrid digital lab},
-  year         = {2026},
-  publisher    = {Zenodo},
-  version      = {0.2},
-  doi          = {10.5281/zenodo.PLACEHOLDER}
+@software{brownscombe2026sciencelabaiframework,
+  author    = {Brownscombe, Jacob W.},
+  title     = {Science Lab {AI} Framework: A reference framework for the hybrid digital lab},
+  year      = {2026},
+  version   = {0.2},
+  url       = {https://github.com/jakebrownscombe/science-lab-AI-framework}
 }
 ```
+
+A companion paper is in preparation; once published, this citation will be supplemented with the paper reference.
 
 
 ---
