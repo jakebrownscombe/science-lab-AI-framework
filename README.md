@@ -395,19 +395,19 @@ The framework is designed to be **non-stationary**. Models will change, vendor A
 
 ## Citation
 
-If you fork, adapt, or use this framework in published work, please cite it. GitHub renders a **"Cite this repository"** button on the repo's right sidebar (sourced from `CITATION.cff`), which generates APA, BibTeX, and other formats on demand. The BibTeX below is the manual fallback:
+If you fork, adapt, or use this framework in published work, please cite it:
 
 ```bibtex
 @software{brownscombe2026sciencelabaiframework,
   author    = {Brownscombe, Jacob W.},
-  title     = {Science Lab {AI} Framework: A reference framework for the hybrid digital lab},
+  title     = {Science Lab {AI} Framework: A customizable framework for using LLMs for scientific workflows},
   year      = {2026},
   version   = {0.2},
   url       = {https://github.com/jakebrownscombe/science-lab-AI-framework}
 }
 ```
 
-A companion paper is in preparation; once published, this citation will be supplemented with the paper reference.
+Use the "Cite this repository" link in the repo's right sidebar for APA and other formats.
 
 
 ---
