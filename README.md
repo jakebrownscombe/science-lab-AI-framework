@@ -176,6 +176,31 @@ You can also invoke skills by name when you want explicit control: *"Use the cod
 
 The framework assumes you come back. A first pass at `analysis-planning` will reveal gaps; the `research-iterate` workflow takes a project from first cut to publication-ready over multiple rounds, with parallel specialist critique and quality gates per round. The dashboard (next section) shows the framework's state at any moment, so you can see exactly which files have been added, modified, or are still pending across sessions.
 
+## Working within a token budget
+
+The framework's simple skills are cheap to run; the multi-phase workflows are not. A single `manuscript-writing` invocation might use 2-3K tokens; a full `manuscript-pipeline` orchestration can easily use 100K+. If you are working within a Claude Pro session limit, a Tier 1 API budget, or any other token-constrained context, the framework supports that, but you have to invoke it deliberately.
+
+### Cost tiers
+
+Skills carry one of three rough cost profiles. The dashboard surfaces this on each skill card.
+
+| Tier | Rough range | What it looks like |
+|---|---|---|
+| **Light** | 1-5K tokens | Single-job skills with no sub-agents: drafting a paragraph, rendering a `.docx`, replying to one reviewer comment, writing a synthesis |
+| **Medium** | 10-30K tokens | Single skills that spawn internal sub-agents or run multi-pass review: `analysis-planning`, `code-review`, `reviewer-reply-planning`, `reviewer-reply-drafting` |
+| **Heavy** | 50-200K+ tokens | Multi-phase orchestrators with parallel sub-agent dispatch: `paper-research`, `expert-review`, all `*-pipeline` skills, and especially `research-iterate` (which loops over rounds) |
+
+### Budget-conscious patterns
+
+- **Invoke simple skills directly, not orchestrators.** *"Plan the analysis"* (one skill call) is far cheaper than *"run the full analysis pipeline"* (chains plan, implement, review). Save the orchestrator for projects where the spend is justified.
+- **Run pipeline phases manually, one at a time.** Instead of `manuscript-pipeline`, run `paper-research`, then `manuscript-writing`, then `expert-review` as discrete calls across separate sessions. Stop early if the output is good enough.
+- **Reserve heavy workflows for stakes that justify them.** `research-iterate` and the orchestrator pipelines are designed for the "rough to publication-ready" transition with defensible quality gates. They are not the right tool for a sketch.
+- **Trim parallel sub-agent dispatch.** Ask explicitly: *"Run expert-review with two reviewers instead of five"* or *"In research-iterate, skip the parallel critique this round."*
+- **Choose the model to fit the task.** Lighter models (Haiku, Sonnet) handle routine writing and code generation cleanly. Reserve frontier models (Opus and equivalents) for synthesis steps that genuinely need them.
+- **Session hygiene.** Start fresh sessions for new tasks; dragging long context across topics burns tokens on irrelevant history.
+
+A workable budget pattern: use simple skills throughout the project lifecycle (one `analysis-planning`, one `code-writing`, one `code-review`, a few `manuscript-writing` calls), and reserve a single `research-iterate` pass for final polish before submission. That is roughly one heavy workflow plus a handful of light invocations, producing a defensible output without burning a month's tokens in one session.
+
 ## Tracking the framework as it grows
 
 The dashboard at `tools/system-dashboard.html` is the central place to keep track of your framework as it develops. As you populate conventions, add domain-specialist agents, seed knowledge-base topics, or modify skills, the dashboard reflects what is in place and what is still pending. **Keep it open as you build.** It is the most reliable view of how your fork is evolving, both for yourself and for collaborators who clone from your version.
