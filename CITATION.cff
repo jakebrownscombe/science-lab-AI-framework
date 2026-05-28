@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you fork, adapt, or use this framework in published work, please cite it using the metadata below."
-title: "Science Lab AI Framework: A customizable framework for using LLMs for scientific workflows"
+title: "Science Lab AI Framework: A customizable framework for using LLMs in scientific workflows"
 abstract: "A vendor-neutral reference framework for building a hybrid digital lab around large language models. Companion deposit to Brownscombe et al. (in preparation), Beyond the AI Scientist: An architecture for human-AI scientific practice."
 type: software
 authors:
@@ -29,7 +29,7 @@ preferred-citation:
   authors:
     - family-names: "Brownscombe"
       given-names: "Jacob W."
-  title: "Science Lab AI Framework: A customizable framework for using LLMs for scientific workflows"
+  title: "Science Lab AI Framework: A customizable framework for using LLMs in scientific workflows"
   year: 2026
   version: "0.2"
   url: "https://github.com/jakebrownscombe/science-lab-AI-framework"

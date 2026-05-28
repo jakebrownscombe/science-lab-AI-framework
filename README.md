@@ -400,7 +400,7 @@ If you fork, adapt, or use this framework in published work, please cite it:
 ```bibtex
 @software{brownscombe2026sciencelabaiframework,
   author    = {Brownscombe, Jacob W.},
-  title     = {Science Lab {AI} Framework: A customizable framework for using LLMs for scientific workflows},
+  title     = {Science Lab {AI} Framework: A customizable framework for using LLMs in scientific workflows},
   year      = {2026},
   version   = {0.2},
   url       = {https://github.com/jakebrownscombe/science-lab-AI-framework}
