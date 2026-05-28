@@ -108,7 +108,12 @@ The framework is designed to be set up with AI assistance, which is the most rel
 ### Recommended: AI-assisted onboarding (~1 hour)
 
 ```bash
-# 1. Fork or clone the framework into your own version control
+# 1. Fork the framework on GitHub so the copy lives under your account.
+#    UI: visit https://github.com/jakebrownscombe/science-lab-AI-framework and click "Fork".
+#    Or via the gh CLI:
+gh repo fork jakebrownscombe/science-lab-AI-framework --clone --remote
+
+# 1b. If you forked via the UI rather than gh, clone your fork locally:
 git clone https://github.com/<your-username>/science-lab-AI-framework.git my-lab-framework
 cd my-lab-framework
 
@@ -126,6 +131,8 @@ open setup/lab-onboarding.html
 # 5. Review the generated files, edit anything that does not match your lab,
 #    commit, and you are ready.
 ```
+
+Forking (rather than cloning the upstream directly) gives you a remote copy on GitHub under your account, which lets you commit your lab-specific customisations, share with collaborators, and contribute improvements back as pull requests. It also lets the maintainers see who is using the framework via GitHub's forks count.
 
 What you end up with: populated `conventions/voice.md`, `manuscript-format.md`, `code-format.md`, `figure-format.md`, `reply-format.md`, stubs for any domain-specialist agents you need, and a seeded knowledge base with your first three topics. If you prefer chat over a browser form, `setup/SKILL.md` runs the same interview directly in any LLM session.
 
