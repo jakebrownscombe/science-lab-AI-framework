@@ -49,11 +49,11 @@ A **vendor-neutral framework** for setting up the persistent infrastructure a wo
 The framework is built around four architectural primitives:
 
 1. **Skills** as externalised conventions, methodological defaults, and workflows that the model invokes when it matches a relevant intent.
-2. **Sub-agents** as specialist roles that mirror how a real lab divides cognitive labour.
+2. **Hooks** as deterministic, event-triggered scripts that fire on every commit, prompt, or session end to enforce conventions and keep derived state in sync.
 3. **Knowledge bases** as curated, topic-organised, citation-anchored reference layers that grow with the researcher's career.
-4. **Hooks** as deterministic, event-triggered scripts that fire on every commit, prompt, or session end to enforce conventions and keep derived state in sync.
+4. **Sub-agents** as specialist roles that mirror how a real lab divides cognitive labour.
 
-Where the first three are best-effort (invoked when the model recognises a relevant intent), hooks are guarantees: they fire regardless of what the model does. They are the framework's enforcement layer: they turn the rest from suggestions into infrastructure.
+Where Skills, Knowledge bases, and Sub-agents are best-effort (invoked when the model recognises a relevant intent), Hooks are guarantees: they fire regardless of what the model does. They are the framework's enforcement layer: they turn the rest from suggestions into infrastructure.
 
 It is intentionally generic. Out of the box it does nothing lab-specific. The point is that you fork it, run the AI-assisted onboarding, and end up with a framework tuned to your lab, your voice, your methods, and your tools.
 
@@ -81,7 +81,7 @@ The scientist configures the framework; the framework structures the LLM's work;
                maintains                         iterates
                     ▼                               │
      ┌──────────────────────────────────────────────────────────────────┐
-     │   Skills  ◀──▶  Sub-agents  ◀──▶  Knowledge base  ◀──▶  Hooks    │
+     │   Skills  ◀──▶  Hooks  ◀──▶  Knowledge base  ◀──▶  Sub-agents   │
      └──────────────┬───────────────────────────────▲───────────────────┘
                     │                               │
                invokes /                         outputs /
