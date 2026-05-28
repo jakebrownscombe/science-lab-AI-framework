@@ -51,7 +51,9 @@ The framework is built around four architectural primitives:
 1. **Skills** as externalised conventions, methodological defaults, and workflows that the model invokes when it matches a relevant intent.
 2. **Sub-agents** as specialist roles that mirror how a real lab divides cognitive labour.
 3. **Knowledge bases** as curated, topic-organised, citation-anchored reference layers that grow with the researcher's career.
-4. **Hooks** as deterministic, event-triggered scripts that fire on every commit, every prompt, and every session end. Where the first three are best-effort (the model invokes them when it recognises a relevant intent), hooks are guarantees: they fire regardless of what the model does. They are the framework's enforcement layer: they make conventions land reliably, keep derived state in sync, and turn the rest of the framework from suggestions into infrastructure.
+4. **Hooks** as deterministic, event-triggered scripts that fire on every commit, prompt, or session end to enforce conventions and keep derived state in sync.
+
+Where the first three are best-effort (invoked when the model recognises a relevant intent), hooks are guarantees: they fire regardless of what the model does. They are the framework's enforcement layer: they turn the rest from suggestions into infrastructure.
 
 It is intentionally generic. Out of the box it does nothing lab-specific. The point is that you fork it, run the AI-assisted onboarding, and end up with a framework tuned to your lab, your voice, your methods, and your tools.
 
@@ -67,34 +69,30 @@ It is not a packaged AI system. It is not vendor-specific. It is not a substitut
 
 ## Architecture at a glance
 
-The scientist configures the framework; the framework structures the LLM's work; the LLM's outputs flow back through the framework for the scientist to review and iterate. Every interface is two-way. **Hooks wrap the entire loop**: they intercept system events (commits, prompts, session ends) to enforce conventions and keep derived state in sync deterministically, regardless of what the model does inside.
+The scientist configures the framework; the framework structures the LLM's work; the LLM's outputs flow back through the framework for the scientist to review and iterate. Every interface is two-way.
 
 ```
-   ╔══════════════════════════════════════════════════════════════════╗
-   ║   HOOKS: enforce conventions and refresh derived state on every  ║
-   ║          commit, prompt, and session end. Runtime guarantees.    ║
-   ║                                                                  ║
-   ║   ┌──────────────────────────────────────────────────────────┐   ║
-   ║   │                  Working scientist                       │   ║
-   ║   │           holds authority, curates, iterates             │   ║
-   ║   └──────────┬───────────────────────────────▲───────────────┘   ║
-   ║              │                               │                   ║
-   ║         configures /                      reviews /              ║
-   ║         maintains                         iterates               ║
-   ║              ▼                               │                   ║
-   ║   ┌──────────────────────────────────────────────────────────┐   ║
-   ║   │  Skills   ◀──▶   Sub-agents   ◀──▶   Knowledge base      │   ║
-   ║   │                (the framework files)                     │   ║
-   ║   └──────────┬───────────────────────────────▲───────────────┘   ║
-   ║              │                               │                   ║
-   ║         invokes /                         outputs /              ║
-   ║         structures                        drafts                 ║
-   ║              ▼                               │                   ║
-   ║   ┌──────────────────────────────────────────────────────────┐   ║
-   ║   │       Any capable LLM (Claude / GPT / Gemini)            │   ║
-   ║   └──────────────────────────────────────────────────────────┘   ║
-   ║                                                                  ║
-   ╚══════════════════════════════════════════════════════════════════╝
+        ┌──────────────────────────────────────────────────────────┐
+        │                  Working scientist                       │
+        │           holds authority, curates, iterates             │
+        └──────────┬───────────────────────────────▲───────────────┘
+                   │                               │
+              configures /                      reviews /
+              maintains                         iterates
+                   ▼                               │
+        ┌──────────────────────────────────────────────────────────┐
+        │   Skills   ◀──▶   Sub-agents   ◀──▶   Knowledge base     │
+        │                                                          │
+        │   Hooks  (deterministic; fire on commits, prompts,       │
+        │           and session ends to enforce the above)         │
+        └──────────┬───────────────────────────────▲───────────────┘
+                   │                               │
+              invokes /                         outputs /
+              structures                        drafts
+                   ▼                               │
+        ┌──────────────────────────────────────────────────────────┐
+        │       Any capable LLM (Claude / GPT / Gemini)            │
+        └──────────────────────────────────────────────────────────┘
 ```
 
 The cycle runs at every scale: a single chat session (LLM proposes; scientist verifies; framework updates), a project (skills get refined as analyses surface gaps), and a career (the knowledge base compounds across projects). The framework's job is to make every loop more reliable than the last.
