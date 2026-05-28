@@ -31,7 +31,7 @@
 8. [Tracking the framework as it grows](#tracking-the-framework-as-it-grows)
 9. [What is inside](#what-is-inside)
 10. [What the setup interview asks](#what-the-setup-interview-asks)
-11. [Suggested fundamentals (and what you own)](#suggested-fundamentals-and-what-you-own)
+11. [Fundamentals and templates](#fundamentals-and-templates)
 12. [Extending the framework](#extending-the-framework)
 13. [Vocabulary](#vocabulary)
 14. [Roadmap](#roadmap)
@@ -375,7 +375,7 @@ The HTML form covers seven phases. Answers persist in `localStorage` so partial 
 
 ---
 
-## Suggested fundamentals (and what you own)
+## Fundamentals and templates
 
 The framework is yours to shape. Every file is editable, and the structure is built to accommodate replacement, removal, and extension. What ships in v0.2 is a starting point organised into two kinds of file:
 
