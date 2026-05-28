@@ -181,15 +181,13 @@ Now when you run `claude` from any project directory, Claude Code can read every
 
 ### Anthropic SDK and API
 
-For applications built on the Anthropic SDK, load the framework's markdown files programmatically and inject them as system-prompt content or file references. Pattern: detect the task intent, read the relevant SKILL.md, prepend it to the system prompt, run. A reference implementation is on the v0.3 roadmap.
+For applications built on the Anthropic SDK, load the framework's markdown files programmatically and inject them as system-prompt content or file references. Pattern: detect the task intent, read the relevant SKILL.md, prepend it to the system prompt, run.
 
 ### Other harnesses
 
 Any AI tool that can read markdown files on demand (via file-system access, RAG, MCP, or attached file references), invoke sub-processes for sub-agent role-play within a session, and load external context via system prompts, project files, or retrieval can run the framework.
 
-Concrete pattern: load `CLAUDE.md` as the session's high-level instructions; load relevant SKILL.md files when their trigger description matches the task; reference sub-agent role files when dispatching specialist work. Cross-harness adapters (ChatGPT custom-GPT projects, Gemini extensions, LangChain or LlamaIndex wrappers) are a v0.4 roadmap item; community contributions welcome.
-
-A future release may also ship a parallel `AGENTS.md` (the cross-vendor convention OpenAI and others have proposed) as a symlink to `CLAUDE.md`, so harnesses that auto-load `AGENTS.md` pick up the framework without manual configuration.
+Concrete pattern: load `CLAUDE.md` as the session's high-level instructions; load relevant SKILL.md files when their trigger description matches the task; reference sub-agent role files when dispatching specialist work. Cross-harness adapter examples (ChatGPT custom-GPT projects, Gemini extensions, LangChain or LlamaIndex wrappers) are welcome as community contributions.
 
 ### What the framework does not require
 
@@ -428,7 +426,7 @@ This dual-licensing reflects the framework's nature: the methodological scaffold
 The framework is built to be forked. Contributions back to the canonical repo are welcome in the following forms:
 
 - **Adopter case studies**: short writeups of how a lab adapted the framework, what worked, what did not. These directly inform the next iteration.
-- **Domain-specialist agents**: generic enough to be useful across labs, opinionated enough to be useful at all. PRs into `agents/community-specialists/` (folder will be created with the first contribution).
+- **Domain-specialist agents**: generic enough to be useful across labs, opinionated enough to be useful at all. PRs into `agents/community-specialists/`.
 - **Knowledge-base topic skeletons**: per-domain INDEX.md + a starter article on a methods topic. PRs into `knowledge_base/community-topics/`.
 - **Cross-harness ports**: adapters that let the framework run cleanly on GPT, Gemini, or open-weight models.
 - **Dashboard extensions**: new panels, better visualisations, alternative renderers.
