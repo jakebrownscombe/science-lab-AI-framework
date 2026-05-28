@@ -83,8 +83,7 @@ The scientist configures the framework; the framework structures the LLM's work;
         ┌──────────────────────────────────────────────────────────┐
         │   Skills   ◀──▶   Sub-agents   ◀──▶   Knowledge base     │
         │                                                          │
-        │   Hooks  (deterministic; fire on commits, prompts,       │
-        │           and session ends to enforce the above)         │
+        │                          Hooks                           │
         └──────────┬───────────────────────────────▲───────────────┘
                    │                               │
               invokes /                         outputs /
