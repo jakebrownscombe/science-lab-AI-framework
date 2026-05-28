@@ -80,14 +80,17 @@ If the adopter has not yet populated the templates, point them to `setup/SKILL.m
 
 ## Dashboard
 
-A system-state dashboard can be generated via `tools/generate-state.js` and viewed in any browser:
+The dashboard at `tools/system-dashboard.html` reports skill inventory, agent roster, knowledge-base coverage, and convention-population status. It is intended to stay current automatically:
+
+- A git pre-commit hook at `tools/git-hooks/pre-commit` regenerates the dashboard whenever framework files (`skills/`, `agents/`, `knowledge_base/`, `conventions/`, `setup/`) are staged for commit, and stages the regenerated artifacts alongside the commit.
+- **Operating instruction for any AI instance**: after modifying any file under `skills/`, `agents/`, `knowledge_base/`, `conventions/`, or `setup/`, run `node tools/generate-state.js` before reporting the task complete. Treat this as part of the task, not a separate request. The pre-commit hook is a backstop, not a replacement.
+
+Manual regeneration (for cases where the hook is not installed or the AI is reviewing without modifying):
 
 ```bash
 node tools/generate-state.js
 open tools/system-dashboard.html
 ```
-
-The dashboard reports skill inventory, agent roster, knowledge-base coverage, and convention-population status. Useful for tracking what is set up and what remains.
 
 ## Always-load contracts
 

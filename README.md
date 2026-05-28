@@ -113,6 +113,9 @@ gh repo fork jakebrownscombe/science-lab-AI-framework --clone --remote
 git clone https://github.com/<your-username>/science-lab-AI-framework.git my-lab-framework
 cd my-lab-framework
 
+# 1c. Install the pre-commit hook so the dashboard auto-regenerates on every commit
+ln -sf ../../tools/git-hooks/pre-commit .git/hooks/pre-commit
+
 # 2. Open the onboarding form in your browser
 open setup/lab-onboarding.html
 # (or your distribution's equivalent: xdg-open / start)
@@ -253,7 +256,17 @@ The dashboard at `tools/system-dashboard.html` is the central place to keep trac
 > [!IMPORTANT]
 > Keep the dashboard open as you build. It is the most reliable view of how your fork is evolving, both for yourself and for collaborators who clone from your version.
 
-Regenerate it at any point:
+**The dashboard regenerates itself.** Two mechanisms keep it current without you remembering to run anything:
+
+- **Pre-commit git hook.** Whenever you stage changes to `skills/`, `agents/`, `knowledge_base/`, `conventions/`, or `setup/`, the hook at `tools/git-hooks/pre-commit` runs the generator and stages the updated dashboard alongside your commit. Install once per clone:
+
+  ```bash
+  ln -sf ../../tools/git-hooks/pre-commit .git/hooks/pre-commit
+  ```
+
+- **AI instruction in CLAUDE.md.** When your AI tool modifies framework files, it is instructed to regenerate the dashboard before reporting the task complete. The pre-commit hook is the backstop.
+
+Manual regeneration is still available if you need it (e.g., the hook is not installed, or you want to refresh after editing in a non-git workspace):
 
 ```bash
 node tools/generate-state.js
