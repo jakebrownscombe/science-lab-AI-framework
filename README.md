@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="logo2.png" alt="Science Lab AI Framework" width="280">
+  <img src="logo2.png" alt="Science Lab AI" width="280">
 </p>
 
-<h1 align="center">Science Lab AI Framework</h1>
+<h1 align="center">Science Lab AI</h1>
 
 <p align="center">
-  <em>A framework for leveraging large language models as reliable science tools.</em><br>
+  <em>A customizable framework for using LLMs in scientific workflows.</em><br>
   <strong>Forked, not consumed.</strong><br>
   <span style="color:#6a6a66;">Repo: <code>science-lab-AI-framework</code></span>
 </p>
@@ -400,7 +400,7 @@ If you fork, adapt, or use this framework in published work, please cite it:
 ```bibtex
 @software{brownscombe2026sciencelabaiframework,
   author    = {Brownscombe, Jacob W.},
-  title     = {Science Lab {AI} Framework: A customizable framework for using LLMs in scientific workflows},
+  title     = {Science Lab {AI}: A customizable framework for using LLMs in scientific workflows},
   year      = {2026},
   version   = {0.2},
   url       = {https://github.com/jakebrownscombe/science-lab-AI-framework}

@@ -384,6 +384,8 @@ function scanFramework() {
       if (line.match(/^```/)) break;
       const h1 = line.match(/^#\s+([^#].+?)\s*$/);
       if (h1) { meta.name = h1[1].trim(); break; }
+      const htmlH1 = line.match(/<h1[^>]*>([^<]+?)<\/h1>/);
+      if (htmlH1) { meta.name = htmlH1[1].trim(); break; }
     }
   }
   return meta;
