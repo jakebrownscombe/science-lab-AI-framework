@@ -20,6 +20,29 @@
 
 ---
 
+## Contents
+
+1. [What this is](#what-this-is)
+2. [Why this exists](#why-this-exists)
+3. [Architecture at a glance](#architecture-at-a-glance)
+4. [Setup](#setup)
+5. [Integrating with your AI tool](#integrating-with-your-ai-tool)
+6. [Working with the framework day-to-day](#working-with-the-framework-day-to-day)
+7. [Working within a token budget](#working-within-a-token-budget)
+8. [Tracking the framework as it grows](#tracking-the-framework-as-it-grows)
+9. [What is inside](#what-is-inside)
+10. [What the setup interview asks](#what-the-setup-interview-asks)
+11. [Suggested fundamentals (and what you own)](#suggested-fundamentals-and-what-you-own)
+12. [Extending the framework](#extending-the-framework)
+13. [Vocabulary](#vocabulary)
+14. [Roadmap](#roadmap)
+15. [Citation](#citation)
+16. [Licence](#licence)
+17. [Contributing](#contributing)
+18. [Acknowledgments](#acknowledgments)
+
+---
+
 ## What this is
 
 A **vendor-neutral framework** for setting up the persistent infrastructure a working scientist needs to leverage large language models as science tools across projects, sessions, and model generations.
@@ -32,13 +55,18 @@ The framework is built around three architectural fundamentals:
 
 It is intentionally generic. Out of the box it does nothing lab-specific. The point is that you fork it, run the AI-assisted onboarding, and end up with a framework tuned to your lab, your voice, your methods, and your tools.
 
+---
+
 ## Why this exists
 
 LLMs are useful tools for supporting science, but they require essential scaffolding to produce reliable workflows and products. This framework is an operational layer containing the key elements scientists can use to build tailored workflows specific to their needs, making LLMs more useful and reliable. It is not a static, standardised tool; it is a structural framework for continuously evolving and improving workflows specific to your scientific uses and preferences.
 
 It is not a packaged AI system. It is not vendor-specific. It is not a substitute for scientific judgment.
 
-It is a starting point.
+> [!NOTE]
+> **Forked, not consumed.** This is a starting point. The scientist holds the architecture; the model is the substrate. When the model changes, your skills, agents, and knowledge base still apply.
+
+---
 
 ## Architecture at a glance
 
@@ -68,9 +96,14 @@ The scientist configures the framework; the framework structures the LLM's work;
 
 The cycle runs at every scale: a single chat session (LLM proposes; scientist verifies; framework updates), a project (skills get refined as analyses surface gaps), and a career (the knowledge base compounds across projects). The framework's job is to make every loop more reliable than the last.
 
+---
+
 ## Setup
 
 The framework is designed to be set up with AI assistance, which is the most reliable and efficient route. Direct editing of the files is also supported, and the two approaches combine freely: many adopters use the AI-assisted onboarding for the bulk of the work and then hand-edit anywhere they want to be more specific.
+
+> [!TIP]
+> The AI-assisted onboarding takes about an hour and fills in voice, format, code, and agent conventions for your lab automatically. Reach for the manual edits only when you want to override what the interview produced.
 
 ### Recommended: AI-assisted onboarding (~1 hour)
 
@@ -105,6 +138,8 @@ Every file in the framework is designed to be edited. Use the AI-assisted onboar
 - Seed `knowledge_base/` with topic folders following the `_topic.template/` skeleton.
 
 The component READMEs inside each top-level folder walk you through what each file does and how to populate it.
+
+---
 
 ## Integrating with your AI tool
 
@@ -155,6 +190,8 @@ A future release may also ship a parallel `AGENTS.md` (the cross-vendor conventi
 - No vendor SDK lock-in. No build step, no compile target, no install pipeline.
 - No paid hosting. The framework runs locally; the LLM call is the only external dependency.
 
+---
+
 ## Working with the framework day-to-day
 
 Once your AI tool is wired up, you invoke the framework through natural conversation. When you ask the AI to do something, the routing tables in `CLAUDE.md` match your intent to the right skill, which loads the right conventions, which dispatches the right specialist agents. You start the conversation; the framework handles the rest.
@@ -176,9 +213,14 @@ You can also invoke skills by name when you want explicit control: *"Use the cod
 
 The framework assumes you come back. A first pass at `analysis-planning` will reveal gaps; the `research-iterate` workflow takes a project from first cut to publication-ready over multiple rounds, with parallel specialist critique and quality gates per round. The dashboard (next section) shows the framework's state at any moment, so you can see exactly which files have been added, modified, or are still pending across sessions.
 
+---
+
 ## Working within a token budget
 
 The framework's simple skills are cheap to run; the multi-phase workflows are not. A single `manuscript-writing` invocation might use 2-3K tokens; a full `manuscript-pipeline` orchestration can easily use 100K+. If you are working within a Claude Pro session limit, a Tier 1 API budget, or any other token-constrained context, the framework supports that, but you have to invoke it deliberately.
+
+> [!WARNING]
+> The orchestrator workflows (`manuscript-pipeline`, `analysis-pipeline`, `research-iterate`, `expert-review`, `paper-research`, `reviewer-reply-pipeline`) burn tokens fast. Treat them as final-polish tools, not as the default route. Use the simple skills directly during early-stage work.
 
 ### Cost tiers
 
@@ -201,9 +243,14 @@ Skills carry one of three rough cost profiles. The dashboard surfaces this on ea
 
 A workable budget pattern: use simple skills throughout the project lifecycle (one `analysis-planning`, one `code-writing`, one `code-review`, a few `manuscript-writing` calls), and reserve a single `research-iterate` pass for final polish before submission. That is roughly one heavy workflow plus a handful of light invocations, producing a defensible output without burning a month's tokens in one session.
 
+---
+
 ## Tracking the framework as it grows
 
-The dashboard at `tools/system-dashboard.html` is the central place to keep track of your framework as it develops. As you populate conventions, add domain-specialist agents, seed knowledge-base topics, or modify skills, the dashboard reflects what is in place and what is still pending. **Keep it open as you build.** It is the most reliable view of how your fork is evolving, both for yourself and for collaborators who clone from your version.
+The dashboard at `tools/system-dashboard.html` is the central place to keep track of your framework as it develops. As you populate conventions, add domain-specialist agents, seed knowledge-base topics, or modify skills, the dashboard reflects what is in place and what is still pending.
+
+> [!IMPORTANT]
+> Keep the dashboard open as you build. It is the most reliable view of how your fork is evolving, both for yourself and for collaborators who clone from your version.
 
 Regenerate it at any point:
 
@@ -224,6 +271,8 @@ Six panels cover:
 - **Setup**: onboarding prompts plus a recap of which conventions are populated.
 
 The dashboard is intentionally dependency-free static HTML. No server, no build pipeline, no external CDN. Run the generator, open the file, see the state.
+
+---
 
 ## What is inside
 
@@ -276,6 +325,8 @@ science-lab-AI-framework/
     └── README.md            how to run the dashboard
 ```
 
+---
+
 ## What the setup interview asks
 
 The HTML form covers seven phases. Answers persist in `localStorage` so partial fills survive a tab close; the chat-driven `setup/SKILL.md` walks through the same questions if you prefer.
@@ -288,6 +339,8 @@ The HTML form covers seven phases. Answers persist in `localStorage` so partial 
 - **Knowledge-base seed**: three topics to populate first.
 - **Quality preferences**: which research-iterate gates apply.
 
+---
+
 ## Suggested fundamentals (and what you own)
 
 The framework is yours to shape. Every file is editable, and the structure is built to accommodate replacement, removal, and extension. What ships in v0.2 is a starting point organised into two kinds of file:
@@ -297,6 +350,8 @@ The framework is yours to shape. Every file is editable, and the structure is bu
 
 The naming convention `*.template.md` flags the "yours to fill" files in `ls` output; everything else is a suggested starting point you can override at any time.
 
+---
+
 ## Extending the framework
 
 - **Add domain-specialist agents.** Copy `agents/_domain-specialist.template.md` to `agents/<your-specialist>.md` and fill in the slots. Update the Lab Director's routing table to send relevant tasks there.
@@ -304,6 +359,8 @@ The naming convention `*.template.md` flags the "yours to fill" files in `ls` ou
 - **Tune the skills.** The SKILL.md files in `skills/simple/` and `skills/workflows/` are designed to be edited. They are living documents, not fixed contracts.
 - **Use the iteration workflow.** `conventions/iteration-workflow.md` and `skills/workflows/research-iterate/SKILL.md` together provide a structured loop for converting analyses into publication-ready outputs.
 - **Self-update.** `conventions/system-improvement-protocol.md` defines how user feedback during a project becomes durable changes to the framework itself.
+
+---
 
 ## Vocabulary
 
@@ -319,6 +376,8 @@ The terms used in this framework follow the paper:
 
 Skills follow the open Agent Skills standard. Knowledge bases use plain Markdown for portability; retrieval can be wired through any framework that supports RAG or the Model Context Protocol.
 
+---
+
 ## Roadmap
 
 - **v0.2 (current)**: First public deposit. Core skills, agents, conventions, knowledge-base scaffold, setup interview, dashboard.
@@ -327,6 +386,8 @@ Skills follow the open Agent Skills standard. Knowledge bases use plain Markdown
 - **v1.0**: Stable API for skills and agents. First peer-reviewed evaluation of adopter outcomes.
 
 The framework is designed to be **non-stationary**. Models will change, vendor APIs will change, conventions in your lab will change. The structure is built so those changes update *files*, not the architecture.
+
+---
 
 ## Citation
 
@@ -344,12 +405,16 @@ If you fork, adapt, or use this framework in published work, please cite:
 ```
 
 
+---
+
 ## Licence
 
 - **Documentation** (everything under `agents/`, `conventions/`, `knowledge_base/`, `setup/`, `skills/`, and the markdown files at root): Creative Commons Attribution 4.0 International (CC BY 4.0). See `LICENSE-DOCS`.
 - **Code** (everything under `tools/`): MIT licence. See `LICENSE-CODE`.
 
 This dual-licensing reflects the framework's nature: the methodological scaffolding is documentation that benefits from broad reuse with attribution; the runnable tooling is code that benefits from permissive integration.
+
+---
 
 ## Contributing
 
@@ -362,6 +427,8 @@ The framework is built to be forked. Contributions back to the canonical repo ar
 - **Dashboard extensions**: new panels, better visualisations, alternative renderers.
 
 Please open an issue before substantial work to discuss scope. The framework is intentionally minimal at the core; not every contribution will be appropriate to merge upstream, but every contribution informs the design.
+
+---
 
 ## Acknowledgments
 
