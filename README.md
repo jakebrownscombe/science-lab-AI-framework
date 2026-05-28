@@ -62,9 +62,6 @@ LLMs are useful tools for supporting science, but they require essential scaffol
 
 It is not a packaged AI system. It is not vendor-specific. It is not a substitute for scientific judgment.
 
-> [!NOTE]
-> **Forked, not consumed.** This is a starting point. The scientist holds the architecture; the model is the substrate. When the model changes, your skills, agents, and knowledge base still apply.
-
 ---
 
 ## Architecture at a glance
